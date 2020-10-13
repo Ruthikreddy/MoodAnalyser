@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MoodAnalyserNamespace;
+using TestReflections;
 
 namespace MoodAnalyserMsTest
 {
@@ -38,20 +39,38 @@ namespace MoodAnalyserMsTest
         }
 
         /// <summary>
-        /// UC2 for NullExceptions
+        /// TC 3.1 for NullExceptions
         /// </summary>
         /// <param name="message"></param>
-        [DataRow(null)]
         [TestMethod]
-        public void GivenNullShouldReturnHappy(string message)
+        public void Given_Empty_Mood_Should_Throw_MoodAnalysisCustomException_IndicatingEmptyMood()
         {
-            //arrange
-            string expected = "HAPPY";
-            moodAnalyser = new MoodAnalyser(message);
-            //Act
-            string mood = moodAnalyser.AnalyserMethod();
-            //assert
-            Assert.AreEqual(expected, mood);
+            try
+            {
+                string message = "";
+                MoodAnalyser moodAnalyser = new MoodAnalyser(message);
+
+            }
+            catch (MoodAnalyserCustomException e)
+            {
+                Assert.AreEqual("mood should not be empty", e.Message);
+            }
+
+        }
+        [TestMethod]
+        public void Given_Null_Mood_Should_Throw_MoodAnalysisCustomException_IndicatingNullMood()
+        {
+            try
+            {
+                string message = null;
+                MoodAnalyser moodAnalyser = new MoodAnalyser(message);
+                string mood = moodAnalyser.AnalyserMethod();
+            }
+            catch (MoodAnalyserCustomException e)
+            {
+                Assert.AreEqual("mood should not be null", e.Message);
+            }
+
         }
     }
 }
