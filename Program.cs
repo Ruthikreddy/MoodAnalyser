@@ -1,4 +1,5 @@
 ﻿using System;
+using TestReflections;
 
 namespace MoodAnalyserNamespace
 {
@@ -6,8 +7,9 @@ namespace MoodAnalyserNamespace
     {
         static void Main(string[] args)
         {
-            MoodAnalyser analyser = new MoodAnalyser("I am in sad Mood");
-            Console.WriteLine(analyser.AnalyserMethod());
+            //MoodAnalyser analyser = new MoodAnalyser("I am in sad Mood");
+            //Console.WriteLine(analyser.AnalyserMethod());
+            MoodAnalyserFactory.CreateMoodAnalyserObject("TestReflections.MoodAnalyser", "MoodAnalyser");
             Console.ReadLine();
         }
     }

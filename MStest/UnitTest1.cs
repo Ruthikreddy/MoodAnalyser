@@ -68,9 +68,49 @@ namespace MoodAnalyserMsTest
             }
             catch (MoodAnalyserCustomException e)
             {
-                Assert.AreEqual("mood should not be null", e.Message);
+                Assert.AreEqual("Mood should not be null", e.Message);
             }
 
+        }
+        /// <summary>
+        /// 4.1 UC
+        /// </summary>
+        [TestMethod]
+        public void GivenMoodAnalyserReflection_Return_MoodAnalyserObject()
+        {
+            var obj = new MoodAnalyser();
+            object result = MoodAnalyserFactory.CreateMoodAnalyserObject("TestReflections.MoodAnalyser", "MoodAnalyser");
+            obj.Equals(result);
+        }
+        [DataRow("TestReflections.MoodAnaly", "MoodAnalyser")]
+        [TestMethod, TestCategory("Reflection")]
+        public void CreateObjectOfMoodAnalyseInvalidClassName(string className, string constructor)
+        {
+            //Act
+            try
+            {
+                var obj = MoodAnalyserFactory.CreateMoodAnalyserObject(className, constructor);
+            }
+            //Assert
+            catch (MoodAnalyserCustomException e)
+            {
+                Assert.AreEqual(" no such class found", e.Message);
+            }
+        }
+        [DataRow("MoodAnalyser.MoodAnalyse", "MoodAnalys")]
+        [TestMethod, TestCategory("Reflection")]
+        public void CreateObjectOfMoodAnalyseInvalidConstructor(string className, string constructor)
+        {
+            //Act
+            try
+            {
+                var obj = MoodAnalyserFactory.CreateMoodAnalyserObject(className, constructor);
+            }
+            //Assert
+            catch (MoodAnalyserCustomException e)
+            {
+                Assert.AreEqual("no such constructor found", e.Message);
+            }
         }
     }
 }
