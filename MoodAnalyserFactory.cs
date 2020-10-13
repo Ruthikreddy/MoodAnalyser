@@ -37,6 +37,33 @@ namespace TestReflections
             else
                 throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.NO_SUCH_CONSTRUCTOR, "no such constructor found");
         }
+        /// <summary>
+        /// UC 5 - Create CreateMoodAnalyserParameterizedObject to create Parameterized MoodAnalyser Object
+        /// </summary>
+        /// <param name="className"></param>
+        /// <param name="constructor"></param>
+        /// <returns></returns>
+        public static object CreateMoodAnalyserParameterizedObject(string className, string constructor, string message)
+        {
+            Type type = typeof(MoodAnalyser);
+
+            if (type.Name.Equals(className) || type.FullName.Equals(className))
+            {
+                if (type.Name.Equals(constructor))
+                {
+                    ConstructorInfo construt = type.GetConstructor(new Type[] { typeof(string) });
+                    Object obj = construt.Invoke(new object[] { message });
+                    return obj;
+                }
+                else
+                    throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.NO_SUCH_CONSTRUCTOR, "no such constructor found");
+            }
+            else
+            {
+                throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.NO_SUCH_CLASS, "no such class found");
+            }
+        }
+
     }
     }
 

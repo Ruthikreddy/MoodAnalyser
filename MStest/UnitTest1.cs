@@ -82,6 +82,7 @@ namespace MoodAnalyserMsTest
             object result = MoodAnalyserFactory.CreateMoodAnalyserObject("TestReflections.MoodAnalyser", "MoodAnalyser");
             obj.Equals(result);
         }
+
         [DataRow("TestReflections.MoodAnaly", "MoodAnalyser")]
         [TestMethod, TestCategory("Reflection")]
         public void CreateObjectOfMoodAnalyseInvalidClassName(string className, string constructor)
@@ -97,6 +98,7 @@ namespace MoodAnalyserMsTest
                 Assert.AreEqual(" no such class found", e.Message);
             }
         }
+
         [DataRow("MoodAnalyser.MoodAnalyse", "MoodAnalys")]
         [TestMethod, TestCategory("Reflection")]
         public void CreateObjectOfMoodAnalyseInvalidConstructor(string className, string constructor)
@@ -112,5 +114,58 @@ namespace MoodAnalyserMsTest
                 Assert.AreEqual("no such constructor found", e.Message);
             }
         }
+
+        /// <summary>
+        /// 5.1 UC
+        /// </summary>
+        [TestMethod]
+        public void GivenMoodAnalyserReflection_Return_MoodAnalyserParameterizedObject()
+        {
+            object obj = new MoodAnalyser("happy");
+            object result = MoodAnalyserFactory.CreateMoodAnalyserParameterizedObject("TestReflections.MoodAnalyser", "MoodAnalyser", "happy");
+            obj.Equals(result);
+        }
+
+        [DataRow("TestReflections.MoodAayser", "MoodAnalyser", "happy")]
+        [TestMethod, TestCategory("Reflection"), TestCategory("TC 5")]
+        public void CreateParameterizedObjectOfMoodAnalyseInvalidClassName(string className, string constructor, string message)
+        {
+            //Arrange
+            moodAnalyser = new MoodAnalyser(message);
+            //Act
+            try
+            {
+                var obj = MoodAnalyserFactory.CreateMoodAnalyserParameterizedObject(className, constructor, message);
+            }
+            //Assert
+            catch (MoodAnalyserCustomException e)
+            {
+                Assert.AreEqual("no such class found", e.Message);
+            }
+        }
+        /// <summary>
+        /// TC 5.3 When given invalid constructor then throw exception
+        /// </summary>
+        /// <param name="className"></param>
+        /// <param name="constructor"></param>
+        /// <param name="message"></param>
+        [DataRow("TestReflections.MoodAnalyser", "MoodAnaler", "happy")]
+        [TestMethod, TestCategory("Reflection"), TestCategory("TC 5")]
+        public void CreateParameterizedObjectOfMoodAnalyseInvalidConstructor(string className, string constructor, string message)
+        {
+            //Arrange
+            moodAnalyser = new MoodAnalyser(message);
+            //Act
+            try
+            {
+                var obj = MoodAnalyserFactory.CreateMoodAnalyserParameterizedObject(className, constructor, message);
+            }
+            //Assert
+            catch (MoodAnalyserCustomException e)
+            {
+                Assert.AreEqual("no such constructor found", e.Message);
+            }
+        }
+
     }
 }

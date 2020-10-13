@@ -9,7 +9,8 @@ namespace MoodAnalyserNamespace
         {
             //MoodAnalyser analyser = new MoodAnalyser("I am in sad Mood");
             //Console.WriteLine(analyser.AnalyserMethod());
-            MoodAnalyserFactory.CreateMoodAnalyserObject("TestReflections.MoodAnalyser", "MoodAnalyser");
+           // MoodAnalyserFactory.CreateMoodAnalyserObject("TestReflections.MoodAnaly", "MoodAnalyser");
+            MoodAnalyserFactory.CreateMoodAnalyserParameterizedObject("TestReflections.MoodAnaler", "MoodAnalyser", "happy");
             Console.ReadLine();
         }
     }
