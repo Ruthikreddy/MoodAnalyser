@@ -63,6 +63,27 @@ namespace TestReflections
                 throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.NO_SUCH_CLASS, "no such class found");
             }
         }
+        /// <summary>
+        /// UC 6 - Create InvokeAnalyserMethod to invoke AnalyserMethod using Reflections
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="methodName"></param>
+        /// <returns></returns>
+        public static string InvokeAnalyserMethod(string message, string methodName)
+        {
+            try
+            {
+                Type type = Type.GetType("TestReflections.MoodAnalyser");
+                MethodInfo methodInfo = type.GetMethod(methodName);
+                object moodAnalyserObject = CreateMoodAnalyserParameterizedObject("TestReflections.MoodAnalyser", "MoodAnalyser", "happy");
+                object info = methodInfo.Invoke(moodAnalyserObject, null);
+                return info.ToString();
+            }
+            catch (NullReferenceException)
+            {
+                throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.NO_SUCH_METHOD, "No such method found");
+            }
+        }
 
     }
     }
