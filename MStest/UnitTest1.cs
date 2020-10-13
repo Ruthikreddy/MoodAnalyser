@@ -166,6 +166,40 @@ namespace MoodAnalyserMsTest
                 Assert.AreEqual("no such constructor found", e.Message);
             }
         }
+        /// <summary>
+        /// UC 6.1 - Test AnalyserMethod should return happy message
+        /// </summary>
+        [TestMethod]
+        public void GivenHappyMood_ShouldReturn_HappyMessage()
+        {
+            var expected = "happy";
+            string mood = MoodAnalyserFactory.InvokeAnalyserMethod("happy", "AnalyserMethod");
+            expected.Equals(mood);
+        }
+        /// <summary>
+        /// TC 6.2 When given valid class name , constructor ,message and invalid method name then should throw exception 
+        /// </summary>
+        /// <param name="className"></param>
+        /// <param name="constructor"></param>
+        /// <param name="message"></param>
+        /// <param name="methodName"></param>
+        [DataRow( "Happy", "InvalidMethod")]
+        [TestMethod, TestCategory("Reflection"), TestCategory("TC 6")]
+        public void InvokeMethodOfMoodAnalyserInvalid(string message, string methodName)
+        {
+            //Act
+            try
+            {
+                moodAnalyser = new MoodAnalyser("Happy");
+                object expected = moodAnalyser.AnalyserMethod();
+                object actual = MoodAnalyserFactory.InvokeAnalyserMethod( message, methodName);
+            }
+            //Assert
+            catch (MoodAnalyserCustomException e)
+            {
+                Assert.AreEqual("No such method found", e.Message);
+            }
+        }
 
     }
 }
