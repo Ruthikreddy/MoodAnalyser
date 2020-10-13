@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+using MoodAnalyserNamespace;
 namespace MoodAnalyserNamespace
 {
     public class MoodAnalyser
@@ -17,10 +17,22 @@ namespace MoodAnalyserNamespace
         }
         public string AnalyserMethod()
         {
-            if (this.message.Contains("sad"))
-                return "Sad";
-            else
-                return "Happy";
+            try
+            {
+
+                if (this.message.Contains("sad"))
+                {
+                    return "SAD";
+                }
+                else
+                    return "HAPPY";
+            }
+
+            catch 
+            {
+                return "HAPPY";
+            }
+
         }
     }
 }
