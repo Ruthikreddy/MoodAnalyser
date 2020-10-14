@@ -83,7 +83,7 @@ namespace MoodAnalyserMsTest
             obj.Equals(result);
         }
 
-        [DataRow("TestReflections.MoodAnaly", "MoodAnalyser")]
+        [DataRow("TestReflections.MoodAnalyser", "MoodAnalys")]
         [TestMethod, TestCategory("Reflection")]
         public void CreateObjectOfMoodAnalyseInvalidClassName(string className, string constructor)
         {
@@ -201,5 +201,54 @@ namespace MoodAnalyserMsTest
             }
         }
 
+        /// <summary>
+        /// UC 7.1 : Set HAPPY messsage with reflector should return HAPPY
+        /// </summary>
+        [TestMethod]
+        public void GivenHAPPYMessage_WithReflector_ShouldReturnHAPPY()
+        {
+            //Arrange
+            string expected = "HAPPY";
+            //Act
+            string actual = MoodAnalyserFactory.SetField("HAPPY", "message");
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        /// UC 7.2 : Setting improper field should throw exception NO_SUCH_FIELD
+        /// </summary>
+        [TestMethod]
+        public void SetFieldWhenImproper_ShouldThrowMoodAnalysisException()
+        {
+            try
+            {
+                //Act
+                object result = MoodAnalyserFactory.SetField("HAPPY", "mes");
+            }
+            catch (MoodAnalyserCustomException exception)
+            {
+                //Assert
+                Assert.AreEqual("no field found", exception.Message);
+            }
+        }
+
+        /// <summary>
+        /// UC 7.3 : Setting null messsage with reflection should throw NULL_MESSAGE exception
+        /// </summary>
+        [TestMethod]
+        public void SetNullMessage_ShouldThrowMoodAnalysisException()
+        {
+            try
+            {
+                //Act
+                object result = MoodAnalyserFactory.SetField(null, "message");
+            }
+            catch (MoodAnalyserCustomException exception)
+            {
+                //Assert
+                Assert.AreEqual("message should not be null", exception.Message);
+            }
+        }
     }
 }

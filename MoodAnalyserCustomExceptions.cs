@@ -12,9 +12,10 @@ namespace TestReflections
             NULL_MESSAGE,
             NO_SUCH_CLASS,
             NO_SUCH_METHOD,
-            NO_SUCH_CONSTRUCTOR
+            NO_SUCH_CONSTRUCTOR,
+            NO_SUCH_FIELD,
         }
-        public readonly ExceptionType type;
+        private readonly ExceptionType type;
 
         public MoodAnalyserCustomException(ExceptionType type, string message) : base(message)
         {

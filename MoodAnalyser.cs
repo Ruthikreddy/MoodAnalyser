@@ -6,7 +6,7 @@ namespace TestReflections
 {
     public class MoodAnalyser
     {
-        private string message;
+        public string message;
 
         /// <summary>
         /// setting parameterised constructor with sad or happy message
@@ -21,7 +21,7 @@ namespace TestReflections
         {
             Console.WriteLine("Defalut Constuctor");
         }
-
+        
         /// <summary>
         /// based on mood returing sad or happy message
         /// </summary>
